@@ -65,71 +65,71 @@ const DealerForm = ({ onSubmit }) => {
             </p>
           </div>
 
-           <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <TextInput
-          label="Dealer Name *"
-          icon={<User className="inline h-4 w-4 mr-1" />}
-          value={formData.dealerName}
-          placeholder="Enter dealer name"
-          error={errors.dealerName}
-          onChange={(val) => handleInputChange("dealerName", val)}
-        />
-        <TextInput
-          label="Firm Name *"
-          icon={<Building2 className="inline h-4 w-4 mr-1" />}
-          value={formData.firmName}
-          placeholder="Enter firm name"
-          error={errors.firmName}
-          onChange={(val) => handleInputChange("firmName", val)}
-        />
-      </div>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <TextInput
+                label="Dealer Name *"
+                icon={<User className="inline h-4 w-4 mr-1" />}
+                value={formData.dealerName}
+                placeholder="Enter dealer name"
+                error={errors.dealerName}
+                onChange={(val) => handleInputChange("dealerName", val)}
+              />
+              <TextInput
+                label="Firm Name *"
+                icon={<Building2 className="inline h-4 w-4 mr-1" />}
+                value={formData.firmName}
+                placeholder="Enter firm name"
+                error={errors.firmName}
+                onChange={(val) => handleInputChange("firmName", val)}
+              />
+            </div>
 
-      <TextareaInput
-        label="Address"
-        icon={<MapPin className="inline h-4 w-4 mr-1" />}
-        value={formData.address}
-        placeholder="Enter complete address"
-        onChange={(val) => handleInputChange("address", val)}
-      />
+            <TextareaInput
+              label="Address"
+              icon={<MapPin className="inline h-4 w-4 mr-1" />}
+              value={formData.address}
+              placeholder="Enter complete address"
+              onChange={(val) => handleInputChange("address", val)}
+            />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <TextInput
-          label="Contact Number *"
-          type="tel"
-          icon={<Phone className="inline h-4 w-4 mr-1" />}
-          value={formData.contactNumber}
-          placeholder="Enter contact number"
-          error={errors.contactNumber}
-          onChange={(val) => handleInputChange("contactNumber", val)}
-        />
-        <TextInput
-          label="Email ID"
-          type="email"
-          icon={<Mail className="inline h-4 w-4 mr-1" />}
-          value={formData.emailId}
-          placeholder="Enter email address"
-          error={errors.emailId}
-          onChange={(val) => handleInputChange("emailId", val)}
-        />
-      </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <TextInput
+                label="Contact Number *"
+                type="tel"
+                icon={<Phone className="inline h-4 w-4 mr-1" />}
+                value={formData.contactNumber}
+                placeholder="Enter contact number"
+                error={errors.contactNumber}
+                onChange={(val) => handleInputChange("contactNumber", val)}
+              />
+              <TextInput
+                label="Email ID"
+                type="email"
+                icon={<Mail className="inline h-4 w-4 mr-1" />}
+                value={formData.emailId}
+                placeholder="Enter email address"
+                error={errors.emailId}
+                onChange={(val) => handleInputChange("emailId", val)}
+              />
+            </div>
 
-      <TextInput
-        label="GST Number *"
-        icon={<Receipt className="inline h-4 w-4 mr-1" />}
-        value={formData.gstNo}
-        placeholder="Enter GST number"
-        error={errors.gstNo}
-        onChange={(val) => handleInputChange("gstNo", val)}
-      />
+            <TextInput
+              label="GST Number *"
+              icon={<Receipt className="inline h-4 w-4 mr-1" />}
+              value={formData.gstNo}
+              placeholder="Enter GST number"
+              error={errors.gstNo}
+              onChange={(val) => handleInputChange("gstNo", val)}
+            />
 
-      <button
-        type="submit"
-        className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors transform hover:scale-105 duration-200"
-      >
-        Continue to Products
-      </button>
-    </form>
+            <button
+              type="submit"
+              className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors transform hover:scale-105 duration-200"
+            >
+              Continue to Products
+            </button>
+          </form>
         </div>
       </div>
     </div>
