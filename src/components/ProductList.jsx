@@ -1,26 +1,42 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Plus, Minus, ShoppingCart, Package } from 'lucide-react';
-import useCartStore from '../Store/Cart'; // make sure path is correct
+import { ArrowLeft, Plus, Minus, Package } from 'lucide-react';
+import {useCartStore} from '../Store/Cart'; // make sure path is correct
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import ProductModel from './ProductModel';
+import CartIcon from './CartIcon';
 
-const ProductList = ({ category, onBack }) => {
-  const [selectedVariants, setSelectedVariants] = useState({});
+const ProductList = () => {  //add onBack over here and category over here
+  const [selectedVariants, setSelectedVariants] = useState(false);
   const [quantities, setQuantities] = useState({});
-  const addToCart = useCartStore((state) => state.addToCart);
+  const [modelopen , setmodelopen] = useState(false);
+  const [modelDetails , setmodelDetails] = useState(null);
+  const [ProductDetails , setProductDetails] = useState(null)
+  const [productIndex , setproductIndex] = useState(0);
   
-  const handleVariantSelect = (productName, variant) => {
-    setSelectedVariants((prev) => ({ ...prev, [productName]: variant }));
-    if (!quantities[productName]) {
-      setQuantities((prev) => ({ ...prev, [productName]: 1 }));
-    }
+  // const addToCart = useCartStore((state) => state.addToCart);
+
+   const cartValues = useCartStore((state) => state.cart);
+   console.log("the cart values are" , cartValues);
+
+  const location = useLocation();
+  const category = location.state;
+  console.log("the category from navigator" , category);
+  const CategoryName = category.category;
+  console.log("the category Name got is" , CategoryName);
+ 
+
+  const navigate = useNavigate();
+
+  
+  const handleVariantSelect = ( product , vIndex) => {
+        console.log("the variant is " ,product);
+        setProductDetails(product);
+        setmodelDetails(vIndex);
+        setmodelopen(true);
   };
 
-  const handleQuantityChange = (productName, change) => {
-    setQuantities((prev) => {
-      const currentQty = prev[productName] || 1;
-      const newQty = Math.max(1, Math.min(99, currentQty + change));
-      return { ...prev, [productName]: newQty };
-    });
-  };
+ 
 
   const handleAddToCart = (productName) => {
     const variant = selectedVariants[productName];
@@ -36,25 +52,29 @@ const ProductList = ({ category, onBack }) => {
     }
   };
 
-  const isOutOfStock = (variant) => variant.quantity === 0;
+  // const isOutOfStock = (variant) => variant.quantity === 0;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="mb-8">
+    <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <CartIcon/>
+      <div className="mb-8 max-w-6xl">
+
         <button
-          onClick={onBack}
+          onClick={() => navigate('/')  }
           className="flex items-center text-green-600 hover:text-green-700 mb-4 transition-colors"
         >
           <ArrowLeft className="h-5 w-5 mr-2" />
           Back to Categories
         </button>
+
         <h2 className="text-3xl font-bold text-gray-800 mb-2">{category.category}</h2>
         <p className="text-gray-600">{category.products.length} products available</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className=" max-w-6xl mx-auto">
+
         {category.products.map((product, index) => (
-          <div key={index} className="bg-white rounded-xl shadow-lg p-6">
+          <div key={index} className="bg-white rounded-xl shadow-xl px-6 pt-6">
             <div className="flex items-center mb-4">
               <div className="bg-green-100 p-2 rounded-full mr-3">
                 <Package className="h-5 w-5 text-green-600" />
@@ -62,49 +82,43 @@ const ProductList = ({ category, onBack }) => {
               <h3 className="text-xl font-semibold text-gray-800">{product.name}</h3>
             </div>
 
-            <div className="mb-6">
+            <div className="">
               <label className="block text-sm font-medium text-gray-700 mb-3">
                 Select Size & View Stock:
               </label>
-              <div className="grid grid-cols-1 gap-3 max-h-64 overflow-y-auto">
+              <div className="grid grid-cols-2 gap-3 max-h-[55dvh] overflow-y-auto ">
                 {product.variants.map((variant, vIndex) => (
                   <button
                     key={vIndex}
+                    className='cursor-pointer'
                     onClick={() =>
-                      !isOutOfStock(variant) && handleVariantSelect(product.name, variant)
+                      handleVariantSelect( product , vIndex) //isoutof stock is removed
                     }
-                    disabled={isOutOfStock(variant)}
-                    className={`p-4 rounded-lg border-2 text-left transition-all duration-200 ${
-                      isOutOfStock(variant)
-                        ? 'border-red-200 bg-red-50 text-red-400 cursor-not-allowed'
-                        : selectedVariants[product.name]?.id === variant.id
-                        ? 'border-green-500 bg-green-50 text-green-700 shadow-md'
-                        : 'border-gray-200 hover:border-green-300 hover:bg-green-50'
-                    }`}
+                    // disabled={isOutOfStock(variant)}
+                    // className={`p-4 rounded-lg border-2 text-left transition-all duration-200 ${
+                    //   isOutOfStock(variant)
+                    //     ? 'border-red-200 bg-red-50 text-red-400 cursor-not-allowed'
+                    //     : selectedVariants[product.name]?.id === variant.id
+                    //     ? 'border-green-500 bg-green-50 text-green-700 shadow-md'
+                    //     : 'border-gray-200 hover:border-green-300 hover:bg-green-50'
+                    // }`}
                   >
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <div className="text-sm font-medium mb-1">{variant.size}</div>
-                        <div className="text-lg font-semibold">₹{variant.MRP.toLocaleString()}</div>
-                      </div>
-                      <div className={`text-xs px-2 py-1 rounded-full ${
-                        isOutOfStock(variant)
-                          ? 'bg-red-100 text-red-600'
-                          : variant.quantity <= 10
-                          ? 'bg-yellow-100 text-yellow-600'
-                          : 'bg-green-100 text-green-600'
-                      }`}>
-                        {isOutOfStock(variant)
-                          ? 'Out of Stock'
-                          : `${variant.quantity} in stock`}
-                      </div>
+                    <div className="flex justify-between items-center w-full px-6 py-4 bg-white border border-green-500 shadow-md rounded-2xl hover:shadow-lg transition duration-300 ease-in-out">
+                      <div className="text-sm font-semibold text-green-700 uppercase tracking-wide">{variant.size}</div>
+                      <div className="text-xl font-bold text-green-900">₹{variant.MRP.toLocaleString()}</div>
                     </div>
+
+
+
+                      
+
+
                   </button>
                 ))}
               </div>
             </div>
 
-            {selectedVariants[product.name] && !isOutOfStock(selectedVariants[product.name]) && (
+            {/* {selectedVariants && selectedVariants[product.name]  (   //&& !isOutOfStock(selectedVariants[product.name]) &&
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium text-gray-700">Quantity:</span>
@@ -147,18 +161,23 @@ const ProductList = ({ category, onBack }) => {
                   </div>
                 </div>
 
-                <button
-                  onClick={() => handleAddToCart(product.name)}
-                  className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center"
-                >
-                  <ShoppingCart className="h-5 w-5 mr-2" />
-                  Add to Cart
-                </button>
+            
               </div>
-            )}
+            )} */}
+
           </div>
         ))}
       </div>
+
+        {
+                          modelopen && 
+                          (
+                            <ProductModel categoryName={CategoryName} product={ProductDetails} setmodelopen={setmodelopen} vIndex={modelDetails}/>
+                          )
+                        }
+
+
+
     </div>
   );
 };

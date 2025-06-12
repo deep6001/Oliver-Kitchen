@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
 import { ChevronDown, ChevronRight, Package } from 'lucide-react';
-import useCartStore from '../Store/Cart'
+import {useCartStore} from '../Store/Cart'
 import { useNavigate } from 'react-router-dom';
 
 
 const CategorySelector = ({ categories }) => {
   const navigate=useNavigate();
   const [expandedCategory, setExpandedCategory] = useState(null);
-  const {setSelectedCategory}=useCartStore();
+  // const {setSelectedCategory}=useCartStore();
+
   const toggleCategory = (categoryName) => {
     setExpandedCategory(expandedCategory === categoryName ? null : categoryName);
   };
+
+
   const handleCategorySelect = (category) => {
-    setSelectedCategory(category);
+    // setSelectedCategory(category);
     console.log('Selected Category:', category);
-    navigate('/productList');
+    navigate('/productList' , {state : category});
   }
 
 
@@ -39,11 +42,11 @@ const CategorySelector = ({ categories }) => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <div className="bg-green-100 p-3 rounded-full mr-4">
-                    <Package className="h-6 w-6 text-green-600" />
+                    <Package className="h-6 w-6 text-green-600" /> 
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-gray-800">{category.category}</h3>
-                    <p className="text-gray-600">{category.products.length} products available</p>
+                    <p className="text-gray-600">{category.products.length} products available and {category.products[0].variants.length} available</p>
                   </div>
                 </div>
                 <div className="text-green-600">
@@ -69,7 +72,7 @@ const CategorySelector = ({ categories }) => {
                   ))}
                 </div>
                 <button
-                  onClick={() => handleCategorySelect(category.category)}
+                  onClick={() => handleCategorySelect(category)}
                   className="mt-4 w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
                 >
                   View Products

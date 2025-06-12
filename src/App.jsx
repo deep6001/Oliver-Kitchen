@@ -3,9 +3,10 @@ import './App.css'
 import DealerForm from './pages/DealerForm'
 import {Routes, Route} from 'react-router-dom'
 import Home from './pages/Home';
-import useCartStore from './Store/Cart';
+// import useCartStore from './Store/Cart';
 import ProductList from './components/ProductList';
 import { data } from './content/data';
+import CheckoutPage from './components/CheckoutPage';
 
  
 
@@ -18,15 +19,16 @@ function App() {
     localStorage.setItem('DealerInfo', JSON.stringify(data));
     setuserInfo(data);
   }
-  const {selectedCategory,clearSelectedCategory}=useCartStore();
+  // const {selectedCategory,clearSelectedCategory}=useCartStore();
 
-  const category= data.find((cat) => cat.category === selectedCategory); 
+  // const category= data.find((cat) => cat.category === selectedCategory); 
 
   return (
     <div className="App h-screen w-full bg-gray-50">
       <Routes>
         <Route path="/" element={userInfo ? <Home /> : <DealerForm onSubmit={handleOnsubmit} />} />
-        
+        <Route path="/productList" element={<ProductList  />} />
+        <Route path="/checkout" element={<CheckoutPage  />} />
 
       </Routes>
     </div>

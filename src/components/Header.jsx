@@ -29,7 +29,7 @@ const Header = ({ cartItemCount, onCartClick, onHomeClick }) => {
               onClick={onCartClick}
               className="relative flex items-center px-3 py-2 rounded-md text-gray-700 hover:text-green-600 hover:bg-green-50 transition-colors"
             >
-              <ShoppingCart className="h-5 w-5 mr-1" />
+              
               <span className="hidden sm:inline">Cart</span>
               {cartItemCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-green-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">

@@ -11,10 +11,9 @@ function Home() {
         <Header />
         <CompanyInfo />
         <Outlet />
-        <Routes>
-          <Route path="/" element={<CategorySelector/>} />
-          <Route path="/productList" element={<CategorySelector categories={data} />} />
-        </Routes>
+       <CategorySelector categories={data}/>
+          
+       
         
     </div>
   )
