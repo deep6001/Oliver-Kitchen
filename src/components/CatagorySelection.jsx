@@ -1,13 +1,23 @@
 import React, { useState } from 'react';
 import { ChevronDown, ChevronRight, Package } from 'lucide-react';
+import useCartStore from '../Store/Cart'
+import { useNavigate } from 'react-router-dom';
 
 
-const CategorySelector = ({ categories, onCategorySelect }) => {
-  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
-
+const CategorySelector = ({ categories }) => {
+  const navigate=useNavigate();
+  const [expandedCategory, setExpandedCategory] = useState(null);
+  const {setSelectedCategory}=useCartStore();
   const toggleCategory = (categoryName) => {
     setExpandedCategory(expandedCategory === categoryName ? null : categoryName);
   };
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+    console.log('Selected Category:', category);
+    navigate('/productList');
+  }
+
+
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -59,7 +69,7 @@ const CategorySelector = ({ categories, onCategorySelect }) => {
                   ))}
                 </div>
                 <button
-                  onClick={() => onCategorySelect(category)}
+                  onClick={() => handleCategorySelect(category.category)}
                   className="mt-4 w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
                 >
                   View Products

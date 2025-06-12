@@ -16,9 +16,9 @@ const CompanyInfo= () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-            <div className="flex items-center mb-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-max mx-auto">
+          <div className="bg-white rounded-xl flex justify-start items-center p-2 shadow-lg hover:shadow-xl transition-shadow">
+            <div className="flex items-center ">
               <div className="bg-green-100 p-3 rounded-full mr-4">
                 <Award className="h-8 w-8 text-green-600" />
               </div>
@@ -30,8 +30,8 @@ const CompanyInfo= () => {
 
           </div>
 
-          <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-            <div className="flex items-center mb-4">
+          <div className="bg-white rounded-xl flex justify-start items-center p-2 shadow-lg hover:shadow-xl transition-shadow">
+            <div className="flex items-center ">
               <div className="bg-green-100 p-3 rounded-full mr-4">
                 <Star className="h-8 w-8 text-green-600" />
               </div>
