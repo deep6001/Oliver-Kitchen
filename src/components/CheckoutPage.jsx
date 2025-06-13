@@ -175,7 +175,40 @@ const CheckoutPage = () => {
                         <Minus className="w-4 h-4 text-red-600" />
                       </button>
 
-                      <span className="text-lg font-semibold">{product.quantity}</span>
+                      <input
+  type="number"
+  min="1"
+  max="99"
+  value={product.quantity}
+  onChange={(e) => {
+    const value = e.target.value;
+
+    // Allow empty string temporarily (for user to type)
+    if (value === "") {
+      updateCartQuantity(categoryName, productName, "");
+      return;
+    }
+
+    const newQty = parseInt(value);
+
+    if (!isNaN(newQty) && newQty > 0 && newQty <= 99) {
+      updateCartQuantity(categoryName, productName, newQty);
+    }
+  }}
+  onBlur={(e) => {
+    const value = e.target.value;
+    const newQty = parseInt(value);
+
+    if (isNaN(newQty) || newQty <= 0) {
+      // On blur, remove if quantity is invalid or empty
+      removeFromCart(categoryName, productName);
+    } else if (newQty > 99) {
+      updateCartQuantity(categoryName, productName, 99);
+    }
+  }}
+  className="w-16 text-center border border-gray-300 rounded-md px-2 py-1 focus:outline-none"
+/>
+
 
                       <button
                         onClick={() => handleQuantityChange(categoryName, productName, 1)}
