@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { User, Building2, MapPin, Phone, Mail, Receipt } from "lucide-react";
 import TextInput from "../components/InputText";
 import TextareaInput from "../components/InputareaText";
+import logo from "../assets/logo2.png"; // Adjust the path as necessary
 
 const DealerForm = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
@@ -57,6 +58,11 @@ const DealerForm = ({ onSubmit }) => {
       <div className="max-w-2xl mx-auto px-4">
         <div className="bg-white rounded-2xl shadow-xl p-8">
           <div className="text-center mb-8">
+            <img
+              src={logo}
+              alt="Olive Kitchen Logo"
+              className="mx-auto mb-4 h-16 sm:h-20"
+            />
             <h1 className="text-3xl font-bold text-gray-800 mb-2">
               Dealer Registration
             </h1>
