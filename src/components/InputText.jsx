@@ -17,6 +17,7 @@ const TextInput = ({
     <input
       type={type}
       value={value}
+      required
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
       className={`w-full px-4 py-3 rounded-lg border-2 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors ${
