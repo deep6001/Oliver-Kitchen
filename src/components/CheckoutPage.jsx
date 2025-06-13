@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { db } from '../firebase/firebase';
 import { doc, setDoc, collection } from 'firebase/firestore';
 import jsPDF from 'jspdf';
+import logo from '../assets/logo2.png'
 
 const CheckoutPage = () => {
   const cart = useCartStore(state => state.cart);
@@ -43,6 +44,8 @@ const CheckoutPage = () => {
       }
     };
 
+  docPDF.addImage(logo, 'PNG', 80, y, 50, 35); // x, y, width, height
+  y += 30; // Leave space after logo
 
 
 
@@ -85,7 +88,7 @@ const CheckoutPage = () => {
         docPDF.text(`Product  : ${product.productName}`, pageMargin, y); y += 7;
         docPDF.text(`Size     : ${product.size}`, pageMargin, y); y += 7;
         docPDF.text(`Quantity : ${product.quantity}`, pageMargin, y); y += 7;
-        docPDF.text(`Total    : ₹${product.total.toLocaleString()}`, pageMargin, y); y += 10;
+        docPDF.text(`Total    : ${product.total.toLocaleString()}`, pageMargin, y); y += 10;
       });
     });
 
@@ -94,7 +97,7 @@ const CheckoutPage = () => {
     // Total Summary
     docPDF.setFontSize(13);
     docPDF.setTextColor(0, 100, 0);
-    docPDF.text(`Total Amount: ₹${totalAmount.toLocaleString()}`, pageMargin, y);
+    docPDF.text(`Total Amount: ${totalAmount.toLocaleString()}`, pageMargin, y);
     y += 15;
 
     // Footer
