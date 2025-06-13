@@ -4,7 +4,7 @@ import logo from '../assets/logo2.png'; // Adjust the path as necessary
 
 const CompanyInfo= () => {
   return (
-    <div className="bg-gradient-to-r from-green-50 to-green-100 py-16 mt-20 h-full">
+    <div className="bg-gradient-to-r from-green-50 to-green-100 py-16 mt-20 h-max ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
             <img src={logo} alt="Crystal Interior Products Pvt Ltd Logo" className="mx-auto h-24 w-auto mb-4" />
